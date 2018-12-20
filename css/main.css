@@ -1,0 +1,53 @@
+body {
+	background-image:url(../img/fond-actu.jpg);
+  	background-position: center center;
+  	background-color:rgb(231, 210, 179);
+  	background-repeat: no-repeat;
+ 	margin:0;
+
+ 	display: grid;
+  	grid-template-columns: 1fr;
+  	grid-template-rows: 10vw 6vw 1fr 5vw;
+  	grid-template-areas: "header"
+                       "nav"
+                       "main"
+                       "footer";
+}
+header {
+	grid-area: header;
+	background-color: rgb(233, 236, 239);
+	margin:0 auto;
+	width: 80vw;
+}
+nav {
+	grid-area: nav;
+	margin:0 auto;
+	width: 80vw;
+	
+	background-color: rgb(52, 58, 64);
+	
+	display: flex;
+	flex-flow: row wrap;
+	justify-content:space-evenly;
+  	align-items: space;
+  	align-content: center;
+
+}
+nav a {
+	text-decoration: none;
+	font-size: 1.5em;
+	color: rgb(200,200,200);
+}
+nav a:hover {
+	color: rgb(230,230,230);
+}
+main {
+	grid-area: main;
+	margin:0 auto;
+	width: 80vw;
+}
+footer {
+	grid-area: footer;
+	margin:0 auto;
+	width: 80vw;
+}
