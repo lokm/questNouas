@@ -1,3 +1,7 @@
-<?php 
-var_dump($d);
- ?>
+<main>
+	<?php
+	var_dump($data);
+	
+
+	 ?>
+</main>

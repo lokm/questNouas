@@ -2,9 +2,11 @@
  
 require_once("modele/Questionnaire.class.php");
 class DaoQuestionnaire {
-	public function create($questionnaire) {
+	public function create(AbstractEntity $questionnaire) {
 		DB::select("INSERT INTO quests (nomquest, intro, idmembre, cat_id) VALUES (?,?,?,?)", array($questionnaire->getNom(),$questionnaire->getIntro(),$questionnaire->getFormateur(), $questionnaire->getCategorie()));
+		$questionnaire->setId(DB::lastId());
 	}
+
 	public function read($id) {
 		$donnee = DB::select("SELECT id, nomquest, intro, idmembre, cat_id FROM quests 
                                 WHERE id = ?", array($id));

@@ -2,10 +2,19 @@
 	<section>
 		<h1>Creation</h1>
 		<article>
-			<h2>Catégorie</h2>
 			<form action="addQuestionnaire" method="POST">
-				<input type="text" name="catNom" placeholder="Nom">
-				<input type="text" name="catDesc" placeholder="Description">
+				<select name="catId">
+				<?php 
+					foreach ($categories as $key => $categorie) {
+						echo "<option value=".$categorie->getId().">".$categorie->getNom()."</option>";
+					}
+				 ?>
+				</select>
+				<input type="text" name="catNom" placeholder="Nom categorie">
+				<input type="text" name="catDesc" placeholder="Description categorie"><br>
+				<input type="text" name="questNom" placeholder="Nom questionnaire"><br>
+				<textarea name="questDesc" id="" cols="30" rows="10" placeholder="Decription questionnaire"></textarea><br>
+				<input type="hidden" name="questUser" value="30">
 				<input type="submit">
 			</form>
 		</article>

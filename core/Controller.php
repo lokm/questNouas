@@ -4,12 +4,11 @@ class Controller {
 	var $vars = array();
 	var $layout = 'default';
 
+
 	function __construct() {
+
 		if (isset($_POST)) {
 			$this->data = $_POST;
-		}
-		if (isset($_GET)) {
-			$this->data = $_GET;
 		}
 	}
 

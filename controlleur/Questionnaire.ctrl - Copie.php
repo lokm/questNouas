@@ -33,7 +33,7 @@ class CtrlQuestionnaire extends Controller {
 		$this->loadDao('Questionnaire');
 		$this->log = "Vous devez renseigner ";
 		$this->cat = new Categorie("","");
-		$this->quest = new Questionnaire("","",0,0);
+		$this->quest = new Questionnaire("","","","");
 		
 		if (!empty($data['catId'])) {
 			$this->quest->setCategorie($data['catId']);
@@ -68,10 +68,7 @@ class CtrlQuestionnaire extends Controller {
 			$this->log = "Questionnaire ajouté !";
 		}
 
-
-		$d['data'] = $this->data;
 		$d['log'] = $this->log;
-		$d['id'] = $this->quest->getId();
 		$this->set($d);
 		$this->render('create');
 		
