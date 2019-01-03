@@ -4,6 +4,7 @@
 class DB {
   private static $db;
   
+  // Méthode pour créer une connection à la BDD
   public static function connect(){
         if(empty(self::$db)){
             self::$db = new PDO(
@@ -18,6 +19,7 @@ class DB {
         return self::$db;
     }
 
+ // Méthode pour éxécuter une réquète SQL
   public static function select($sql, $cond=null) {
     $result = false;
     try {
@@ -28,6 +30,8 @@ class DB {
     $stmt = null;
     return $result;
   }
+
+  // Méthode pour récupérer le dernier ID crée dans la BDD
   public static function lastId() {
     return self::connect()->lastInsertId();
   }

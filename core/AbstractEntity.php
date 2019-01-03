@@ -1,5 +1,5 @@
 <?php 
-
+// Classe abstraite pour définir l'id
 abstract class AbstractEntity {
 	protected $id;
 

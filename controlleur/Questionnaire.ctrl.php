@@ -1,7 +1,8 @@
 <?php 
-
+// Controleur de Questionnaire
 class CtrlQuestionnaire extends Controller {
 	
+	// Action index
 	function index() {
 		$this->loadDao('User');
 		$this->loadDao('Categorie');
@@ -15,6 +16,7 @@ class CtrlQuestionnaire extends Controller {
 		$this->render('index');
 	}
 
+	// Action view
 	function view($id) {
 		$this->loadDao('Questionnaire');
 		$d['questionnaire'] = $this->Questionnaire->read($id);
@@ -23,55 +25,60 @@ class CtrlQuestionnaire extends Controller {
 		$this->render('view');
 	}
 
+	// Action create
 	function create(AbstractEntity $questionnaire) {
 		$this->loadDao('Questionnaire');
 		$this->Questionnaire->create($questionnaire);
 	}
 
+	// Action addQuestionnaire
 	function addQuestionnaire() {
 		$this->loadDao('Categorie');
 		$this->loadDao('Questionnaire');
+
 		$this->log = "Vous devez renseigner ";
 		$this->cat = new Categorie("","");
 		$this->quest = new Questionnaire("","",0,0);
-		
-		if (!empty($data['catId'])) {
-			$this->quest->setCategorie($data['catId']);
-		} elseif (!empty($data['catNom']) && !empty($data['catDesc'])) {
-			$this->cat->setNom($data['catNom']);
-			$this->cat->setDescription($data['catNom']);
+
+		$d['categories'] = $this->Categorie->readAll();
+
+		if (!empty($this->input['catId'])) {
+			$this->quest->setCategorie($this->input['catId']);
+		} elseif (!empty($this->input['catNom']) && !empty($this->input['catDesc'])) {
+			$this->cat->setNom($this->input['catNom']);
+			$this->cat->setDescription($this->input['catNom']);
 			$this->cat->create($this->cat);
 			$this->quest->setCategorie($this->cat->getId());
 		} else {
 			$this->log .= "une catégorie, ";
 		}
 
-		if (!empty($data['questNom'])) {
-			$this->quest->setNom($data['questNom']);
+		if (!empty($this->input['questNom'])) {
+			$this->quest->setNom($this->input['questNom']);
 		} else {
 			$this->log .= "un nom au questionnaire, ";
 		}
 
-		if (!empty($data['questDesc'])) {
-			$this->quest->setIntro($data['questDesc']);
+		if (!empty($this->input['questDesc'])) {
+			$this->quest->setIntro($this->input['questDesc']);
 		} else {
 			$this->log .= "une description au questionnaire, ";
 		}
 
-		if (!empty($data['questUser'])) {
-			$this->quest->setFormateur($data['questUser']);
+		if (!empty($this->input['questUser'])) {
+			$this->quest->setFormateur($this->input['questUser']);
 		} else {
 			$this->log .= "un utilisateur, ";
 		}
 		
-		if ($this->create($this->quest)) {
+		if (!empty($this->input) && $this->create($this->quest)) {
 			$this->log = "Questionnaire ajouté !";
 		}
 
 
-		$d['data'] = $this->data;
+		$d['data'] = $this->input;
 		$d['log'] = $this->log;
-		$d['id'] = $this->quest->getId();
+		$d['quest'] = $this->quest;
 		$this->set($d);
 		$this->render('create');
 		
