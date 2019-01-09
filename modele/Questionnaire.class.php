@@ -14,40 +14,8 @@ class Questionnaire extends AbstractEntity {
 		$this->intro = $intro;
 		$this->formateur = $formateur;
 		$this->categorie = $categorie;
+	
 	}
-
-
-	/*public static function getListUser($id) {
-
-		$mysql = new Mysql();
-		$bdd = $mysql->connect();
-
-		$requete = $bdd->prepare("SELECT DISTINCT idmembre FROM reponsestg 
-                                WHERE idquest = ?");
-		$requete->execute(array($id));
-		$tabUser = array();
-		while ($donnee = $requete->fetch()) {
-			array_push($tabUser,$donnee["idmembre"]);
-		}
-		return $tabUser;
-
-	}
-
-	public static function getListQuestion($id) {
-
-		$mysql = new Mysql();
-		$bdd = $mysql->connect();
-
-		$requete = $bdd->prepare("SELECT * FROM questions 
-                                WHERE idquest = ?");
-		$requete->execute(array($id));
-		$tabQuestion = array();
-		while ($donnee = $requete->fetch()) {
-			$tabQuestion[$donnee["id"]] = $donnee["question"];
-		}
-		return $tabQuestion;
-
-	}*/
 
 	// Getter & Setter
 	public function getId() {
@@ -86,12 +54,5 @@ class Questionnaire extends AbstractEntity {
 		$this->categorie = $categorie;
 	}
 
-	/*public function getListMemberDone() {
-		return $this->listMemberDone;
-	}
-
-	public function setListMemberDone($member) {
-		array_push($this->listMemberDone, $member);
-	}*/
 }
 ?>
