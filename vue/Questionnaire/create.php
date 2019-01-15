@@ -38,19 +38,7 @@
 					} 
 
 		?>
-		<form action="addQuestion" method="post">
-			<input type="radio" name="type" value="0"> Question simple <br>
-			<input type="radio" name="type" value="1"> QCM <br>
-			<input name="question" type="text" placeholder="Entrez voter question">
-			<input name="aide" type="text" placeholder="Entrez une aide"><br>
-			<input type="hidden" name="questId" value="<?php echo $_COOKIE['questId'] ?>">
-			<input type="hidden" name="nbRep" id="nbRep" value="">
-			<div id="questQview"></div>
-			<button type='button' id="btnRep" onclick="addRep()">Ajouter réponse</button><button type='button' id="btnRemoveRep" onclick="removeLastRep()">Enlever réponse</button> <br><br>
-			<input type="submit" value="Save question" id="btnQuestion">
-		</form>
-		<a href="<?php echo WEBROOT ?>Questionnaire/view/<?php echo $quest->getId(); ?>">
-		<button>finaliser</button></a>
+		
 		
 		
 			</article>

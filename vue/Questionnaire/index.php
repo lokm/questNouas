@@ -1,5 +1,10 @@
 <main>
 	<section>
+	 
+		<?php var_dump($_SESSION['type']);
+			if ($_SESSION['type'] == "Admin") {
+		?>
+
 		<h1>Créer</h1>
 		<article>
 			<!-- <a href="<?php //echo WEBROOT ?>Questionnaire/addQuestionnaire"><button>Creation</button></a> -->
@@ -20,10 +25,12 @@
 			</form>			
 		</article>
 		<h1>Voir</h1>
+		
 		<article>
-			<h2>Questionnaire</h2>
+			<form action="search">
 			Catégories
-			<select name="" id="">
+			<select name="selectCat" id="">
+				<option disabled selected value>Selectionnez un uestionnaire</option>
 				<?php 
 					foreach ($categories as $key => $categorie) {
 						echo "<option value=".$categorie->getId().">".$categorie->getNom()."</option>";
@@ -31,7 +38,7 @@
 				 ?>
 			</select>
 			Questionnaires
-			<select name="" id="">
+			<select name="selectQuest" id="">
 				<?php 
 					foreach ($questionnaires as $key => $questionnaire) {
 						echo "<option value='".$questionnaire->getId()."'>".$questionnaire->getNom()."</option>";
@@ -40,14 +47,24 @@
 
 			</select>
 			Stagiaires
-			<select name="" id="">
+			<select name="selectStag" id="">
 				<?php 
 					foreach ($users as $key => $user) {
 						echo "<option value=".$user->getId().">".$user->getNom()." ".$user->getPrenom()."</option>";
 					}
 				 ?>
 			</select>
+			</form>
 		</article>
+
+		<?php 			
+			} //FIN if ($_SESSION['type'] == "Admin")
+
+			if ($_SESSION['type'] == "Membre") {
+				
+			}
+		?>
+		
 
 	</section>
 	

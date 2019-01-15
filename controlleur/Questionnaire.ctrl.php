@@ -90,13 +90,13 @@ class CtrlQuestionnaire extends Controller {
 			}
 
 				$this->create($this->quest);
-				setcookie("questId",$this->quest->getId());
+				
 		}
 		$d['log'] = $this->log;
 		$d['quest'] = $this->quest;
 		$d['listQuestions'] = $this->listQuestions;
 		$this->set($d);
-		$this->render('create');
+		header('Location: view/'.$this->quest->getId());
 		
 		
 	}
@@ -108,10 +108,10 @@ class CtrlQuestionnaire extends Controller {
 		$this->loadDao('Reponse');
 		$this->loadDao('Questionnaire');
 		
-		$this->quest = $this->Questionnaire->read($_COOKIE['questId']);
+		$this->quest = $this->Questionnaire->read((int) $this->input["questId"]);
 		$this->question = new Question("","","","","",0);
 		$this->reponse = new Reponse("","","");
-		$this->listQuestions = $this->Question->readAll($_COOKIE['questId']);
+		$this->listQuestions = $this->Question->readAll((int) $this->input["questId"]);
 
 		
 
@@ -139,7 +139,7 @@ class CtrlQuestionnaire extends Controller {
 		$this->listReponses = $this->Reponse->readAll();
 		$this->question->setReponse($this->listReponses);
 
-		$this->listQuestions = $this->Question->readAll($_COOKIE['questId']);
+		$this->listQuestions = $this->Question->readAll((int) $this->input["questId"]);
 
 		
 		$d['question'] = $this->question;
@@ -147,7 +147,21 @@ class CtrlQuestionnaire extends Controller {
 		$d['quest'] = $this->quest;
 		$d['listQuestions'] = $this->listQuestions;
 		$this->set($d);
-		$this->render('create');
+		header('Location: view/'.$this->quest->getId());
+	}
+
+	function search() {
+		$this->loadDao('Categorie');
+		$this->loadDao('Questionnaire');
+		$this->loadDao('User');
+
+		$this->cat = new Categorie("","");
+		$this->quest = new Questionnaire("","",0,0);
+		$this->user = new User("","","","");
+
+		if (!empty($this->input["selectCat"])) {
+			
+		}
 	}
 
 }

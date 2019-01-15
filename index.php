@@ -4,30 +4,43 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Exercice en ligne</title>
-	<link rel="stylesheet" href="/questionnaire/css/main.css">
+	<?php 
+	define('WEBROOT',str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
+	define('ROOT',str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
+	?>
+	<link rel="stylesheet" href="<?php echo WEBROOT ?>css/main.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	
 </head>
 <body>
+
+
 	<?php 
-	//////////////// ROUTAGE ////////////// 
-	define('WEBROOT',str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
-	define('ROOT',str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 	
+	
+	//////////////// ROUTAGE ////////////// 
+	
+
 	// chargement des composants principaux du core
-	require_once(ROOT.'core/Config.php');
-	require_once(ROOT.'core/Bdd.php');
-	require_once(ROOT.'core/AbstractEntity.php');
-	require_once(ROOT.'core/Controller.php'); 
+	require_once('core/Config.php');
+	require_once('core/Bdd.php');
+	require_once('core/AbstractEntity.php');
+	require_once('core/Controller.php'); 
 
 	// Récupération du controleur et de l'action par l'uri
+	if ($_GET["p"] == "") {
+		$_GET["p"] = "Acceuil/index";
+	}
 	$params = explode('/', $_GET["p"]);
+	
+
 	$controller = $params[0];
 	$controller = $controller.".ctrl.php";
+
 	$action = isset($params[1]) ? $params[1] : 'index';
 
 	// Initialisation du controleur
-	require(ROOT.'controlleur/'.$controller);
+	require('controlleur/'.$controller);
 	$controllerFct = explode('.',$controller);
 	$controller = "Ctrl".$controllerFct[0];
 	$controller = new $controller();
@@ -42,6 +55,6 @@
 	}
 	
 	?>
-	<script type="text/javascript" src="/questionnaire/js/quest.js"></script>
+	<script type="text/javascript" src="<?php echo WEBROOT ?>js/quest.js"></script>
 </body>
 </html>

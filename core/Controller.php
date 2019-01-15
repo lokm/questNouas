@@ -23,18 +23,18 @@ class Controller {
 		extract($this->vars);
 		ob_start();
 		$Controller = substr(get_class($this),4);
-		require(ROOT.'vue/'.$Controller.'/'.$filename.'.php');
+		require('vue/'.$Controller.'/'.$filename.'.php');
 		$content = ob_get_clean();
 		if ($this->layout == false) {
 			echo $content;
 		} else {
-			require(ROOT.'vue/layout/'.$this->layout.'.php');
+			require('vue/layout/'.$this->layout.'.php');
 		}
 	}
 
 	// Méthode pour charger un objet DAO 
 	function loadDao($name) {
-		require_once(ROOT.'dao/'.$name.'.dao.php');
+		require_once('dao/'.$name.'.dao.php');
 		$daoFile = 'Dao'.$name;
 		$this->$name = new $daoFile();
 	}
