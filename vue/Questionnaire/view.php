@@ -68,14 +68,18 @@
 			// AFFICHAGE SI UTILISATEUR AUTRE QUE ADMINISTRATEUR
 			} else {
 			?>
-			<form action="<?php echo WEBROOT ?>Questionnaire/sendQuestion" method="post">
+			<form action="<?php echo WEBROOT ?>Questionnaire/sendQuestionnaire" method="post">
 				<?php
 				if (!empty($listQuestions) && !empty($listReponses)) {
 					echo "<br><br>LIST QUESTIONS<br>";
+					var i = 0;
 					foreach ($listQuestions as $key => $question) {
 						echo "<hr>";
 						echo "questionnaire : ".$question->getQuestionnaire()."<br>";
 						echo "id : ".$question->getId()."<br>";
+				?>
+				<input type="hidden" name="questionsId" value="<?php echo $question->getId(); ?>">
+				<?php
 						echo "question : ".$question->getQuestion()."<br>";
 						
 						echo "aide : ".$question->getAide()."<br><br>";
@@ -87,19 +91,19 @@
 						*/
 						switch ($question->getType()) {
 							case 0 :
-								echo '<input type="text" placeholder="Veuillez entrez votre réponse">';
+								echo '<inpu type="text" name="reponse" placeholder="Veuillez entrez votre réponse">';
 								break;
 							/*Pour les radios et les checkboxes:
 							* les labels sont liés aux input par un id créé
 							*/
 							case 1 :
-								var i = 0;
+								var j = 0;
 								foreach ($listReponses as $key => $reponse) {
-									var htmlId = "R" . i;
+									var htmlId = "Q" . i . "R" . j;
 									if ($question->getId() == $reponse->getQuestion()) {
 										echo '<input id="' .
 											htmlId .
-											'" type="radio" name="reponses" value="' .
+											'" type="radio" name="Q' . i . 'reponse" value="' .
 											$question->getId() .
 											'">' .
 											'<label for="'.
@@ -113,13 +117,13 @@
 								}
 								break;
 							case 2 :
-								var i = 0;
+								var j = 0;
 								foreach ($listReponses as $key => $reponse) {
-									var htmlId = "R" . i;
+									var htmlId = "Q" . i . "R" . j;
 									if ($question->getId() == $reponse->getQuestion()) {
 										echo '<input id="' .
 											htmlId .
-											'" type="checkbox" name="reponses" value="' .
+											'" type="checkbox" name="Q' . i . 'reponse" value="' .
 											$question->getId() .
 											'">' .
 											'<label for="' .
@@ -136,6 +140,15 @@
 				}
 			}
 			?>
+			<!--
+				TODO: input type hidden à remplacer avec une préparation de POST full PHP
+				car les valeurs peuvent être modifiées dans un éditeur de navigateur web
+				/!\ ATTENTION AUX INJECTIONS /!\
+			-->
+			
+			<!-- TODO: input type="hidden" name="utilisateur" value="<?php //echo $_SESSION['userId']; ?>" -->
+			<input type="hidden" name="idQuest" value="<?php echo $quest; ?>">
+
 			<input type="submit">
 			</form>
 		<?php

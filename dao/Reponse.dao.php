@@ -14,6 +14,29 @@ class DaoReponse {
 		$reponse->setId(DB::lastId());*/
 	}
 
+	/*TODO: transformer les paramètres récupérés procédural en objet
+	* transformer les paramètres de post en objet ReponseStagiairepeut-être
+	*/
+	public function reponseStagiaire($reponse, $idmembre, $idreponses, $nbpass, $idquest) {
+		if (
+			DB::select(
+				"INSERT INTO reponsestg (reponse, idmembre, idreponses, nbpass, idquest)
+					VALUES (?, ?, ?, ?, ?)",
+				array(
+					$reponse,
+					$idmembre,
+					$idreponses,
+					$nbpass,
+					$idquest
+				)
+			)
+		) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public function read($id) {
 		$donnee = DB::select("SELECT id, reponse, valid, fk_question FROM reponses 
                                 WHERE id = ?", array($id));

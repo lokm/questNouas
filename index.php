@@ -35,12 +35,12 @@
 	
 
 	$controller = $params[0];
-	$controller = $controller.".ctrl.php";
+	$controller = $controller . ".ctrl.php";
 
 	$action = isset($params[1]) ? $params[1] : 'index';
 
 	// Initialisation du controleur
-	require('controlleur/'.$controller);
+	require('controlleur/' . $controller);
 	$controllerFct = explode('.',$controller);
 	$controller = "Ctrl".$controllerFct[0];
 	$controller = new $controller();

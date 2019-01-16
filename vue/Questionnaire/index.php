@@ -22,7 +22,7 @@
 						<textarea name="questDesc" id="" cols="30" rows="10" placeholder="Decription questionnaire"></textarea><br>
 						<input type="hidden" name="questUser" value="30">
 						<input type="submit">
-			</form>			
+			</form>
 		</article>
 		<h1>Voir</h1>
 		
@@ -31,7 +31,7 @@
 			Catégories
 			<select name="selectCat" id="">
 				<option disabled selected value>Selectionnez un uestionnaire</option>
-				<?php 
+				<?php
 					foreach ($categories as $key => $categorie) {
 						echo "<option value=".$categorie->getId().">".$categorie->getNom()."</option>";
 					}
@@ -39,11 +39,11 @@
 			</select>
 			Questionnaires
 			<select name="selectQuest" id="">
-				<?php 
+				<?php
 					foreach ($questionnaires as $key => $questionnaire) {
 						echo "<option value='".$questionnaire->getId()."'>".$questionnaire->getNom()."</option>";
 					}
-				 ?>
+				?>
 
 			</select>
 			Stagiaires

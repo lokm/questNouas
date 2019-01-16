@@ -34,8 +34,8 @@ class Controller {
 
 	// Méthode pour charger un objet DAO 
 	function loadDao($name) {
-		require_once('dao/'.$name.'.dao.php');
-		$daoFile = 'Dao'.$name;
+		require_once('dao/' . $name . '.dao.php');
+		$daoFile = 'Dao'. $name;
 		$this->$name = new $daoFile();
 	}
 }

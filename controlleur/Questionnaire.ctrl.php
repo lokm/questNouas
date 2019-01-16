@@ -113,8 +113,6 @@ class CtrlQuestionnaire extends Controller {
 		$this->reponse = new Reponse("","","");
 		$this->listQuestions = $this->Question->readAll((int) $this->input["questId"]);
 
-		
-
 		$this->question->setType($this->input["type"]);
 		$this->question->setQuestion($this->input["question"]);
 		$this->question->setAide($this->input["aide"]);
@@ -148,6 +146,31 @@ class CtrlQuestionnaire extends Controller {
 		$d['listQuestions'] = $this->listQuestions;
 		$this->set($d);
 		header('Location: view/'.$this->quest->getId());
+	}
+
+	// action sendQuestionnaire
+	function sendQuestionnaire() {
+		$this->loadDao('Reponse');
+
+		var $questionCount = 0;
+		var $questions = array();
+		foreach($_POST['questionsId'] as $value) {
+			var $newQuestion = [
+				'id' => htmlspecialchars($value),
+				'idReponse' => $_POST["Q" . $questionCount . "reponse"],
+				//'idMembre' => $_POST["utilisateur"],
+				//TODO: 'nbPass' => value,
+				'iqQuest' => $_POST["idQuest"]
+			];
+
+			array_push($questions, $newQuestion);
+			$questionCount++;
+		}
+
+		//TODO: continuer pour le rendre fonctionnel
+		foreach($questions as $question) {
+			$this->Reponse->reponseStagiaire($reponse, $idmembre, $idreponses, $nbpass, $idquest);
+		}
 	}
 
 	function search() {
