@@ -2,9 +2,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
+	<a charset="UTF-8">
 	<title>Exercice en ligne</title>
-	<?php 
+	<?php
 	define('WEBROOT',str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 	define('ROOT',str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
 	?>
@@ -22,10 +22,10 @@
 	
 
 	// chargement des composants principaux du core
-	require_once('core/Config.php');
-	require_once('core/Bdd.php');
-	require_once('core/AbstractEntity.php');
-	require_once('core/Controller.php'); 
+	require_once(ROOT . 'core/Config.php');
+	require_once(ROOT . 'core/Bdd.php');
+	require_once(ROOT . 'core/AbstractEntity.php');
+	require_once(ROOT . 'core/Controller.php'); 
 
 	// Récupération du controleur et de l'action par l'uri
 	if ($_GET["p"] == "") {
