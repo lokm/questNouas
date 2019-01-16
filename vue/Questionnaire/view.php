@@ -41,7 +41,11 @@
 
 		<article>
 		<?php
-			//if (!empty($_SESSION)) {
+			/*TODO: début du if !empty($_SESSION))
+			* if (!empty($_SESSION)) {
+			* puis vérifie si $_SESSION['type'] existe
+			* puis vue si le type de session est admin
+			*/
 	 		if (!empty($_SESSION['type'])) {
 		 		if ($_SESSION['type'] == 'Admin') {
 		?>
@@ -60,6 +64,7 @@
 			<button>finaliser</button></a>
 			<?php
 				}
+
 			// AFFICHAGE SI UTILISATEUR AUTRE QUE ADMINISTRATEUR
 			} else {
 			?>
@@ -84,33 +89,41 @@
 							case 0 :
 								echo '<input type="text" placeholder="Veuillez entrez votre réponse">';
 								break;
+							/*Pour les radios et les checkboxes:
+							* les labels sont liés aux input par un id créé
+							*/
 							case 1 :
+								var i = 0;
 								foreach ($listReponses as $key => $reponse) {
+									var htmlId = "R" . i;
 									if ($question->getId() == $reponse->getQuestion()) {
 										echo '<input id="' .
-											$reponse->getReponse() .
+											htmlId .
 											'" type="radio" name="reponses" value="' .
 											$question->getId() .
 											'">' .
 											'<label for="'.
-											$reponse->getReponse() .
+											htmlId .
 											'">'.
 											$reponse->getReponse() .
 											'</label>'.
 											'<br>';
 									}
+									i++
 								}
 								break;
 							case 2 :
+								var i = 0;
 								foreach ($listReponses as $key => $reponse) {
+									var htmlId = "R" . i;
 									if ($question->getId() == $reponse->getQuestion()) {
 										echo '<input id="' .
-											$reponse->getReponse() .
+											htmlId .
 											'" type="checkbox" name="reponses" value="' .
 											$question->getId() .
 											'">' .
 											'<label for="' .
-											$reponse->getReponse() .
+											htmlId .
 											'">'.
 											$reponse->getReponse() .
 											'</label>'.
@@ -125,9 +138,12 @@
 			?>
 			<input type="submit">
 			</form>
+		<?php
+		/*TODO: end of if !empty($_SESSION)
+		* }
+		*/
+		?>
 		</article>
-		
-		<article>
 			
 	</section>
 </main>
