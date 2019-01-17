@@ -1,13 +1,7 @@
 <main>
 	<section>
 		<h1>Questionnaire</h1>
-		<?php 
-		/*var_dump('toto : '.$toto);
-		echo "<pre>";
-		echo $toto;
-		echo "</pre>";*/
-		$_SESSION['type'] = 'Membre';
-		?>
+		<?php $_SESSION['type'] = 'Member' ?>
 		<article>
 			<form action="<?php echo WEBROOT ?>Questionnaire/updateQuest" method="post" id="formUpdateQuest">
 				<input type="hidden" name="questId" value="<?php echo $quest->getId() ?>">

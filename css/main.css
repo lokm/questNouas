@@ -4,22 +4,31 @@ body {
   	background-color:rgb(231, 210, 179);
   	background-repeat: no-repeat;
  	margin:0;
-
+	height: 100vh;
  	display: grid;
   	grid-template-columns: 1fr;
-  	grid-template-rows: 10vw 6vw 1fr 5vw;
+  	grid-template-rows: 10vw 1fr 5vw;
   	grid-template-areas: "header"
-                       "nav"
+                       
                        "main"
                        "footer";
 }
 header {
 	grid-area: header;
-	background-color: rgb(233, 236, 239);
+	background-color: white;
 	margin:0 auto;
 	width: 80vw;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: center;
+	border-bottom: 10px solid rgb(79, 47, 136);
 }
-nav {
+header img {
+	width: 8vw;
+	
+}
+/* nav {
 	grid-area: nav;
 	margin:0 auto;
 	width: 80vw;
@@ -40,16 +49,38 @@ nav a {
 }
 nav a:hover {
 	color: rgb(230,230,230);
-}
+} */
 main {
 	grid-area: main;
 	margin:0 auto;
 	width: 80vw;
+	background: rgb(79, 47, 136);
+	color: white;
+}
+main input, main select, main textarea, main button {
+	border: none;
+	border-radius: 0.25vw;
+	padding: 0.25vw 0.5vw;
+	margin: 0.25vw;
+}
+main form[name="searchQuest"] {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-end;
+}
+main form[name="searchQuest"] p {
+	margin:0 2vw;
+}
+main form[name="searchQuest"] a {
+	text-decoration: none;
+	color: black;
 }
 footer {
 	grid-area: footer;
 	margin:0 auto;
 	width: 80vw;
+	background: rgb(79, 47, 136);
 }
 #formUpdateQuest {
 	display:none;

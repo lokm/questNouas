@@ -8,6 +8,9 @@ class CtrlQuestionnaire extends Controller {
 		$this->loadDao('Categorie');
 		$this->loadDao('Questionnaire');
 		
+		if (isset($_SESSION['id'])) {
+			$d['userSession'] = $this->User->read($_SESSION['id']);
+		}
 		$d['users'] = $this->User->readAll();
 		$d['categories'] = $this->Categorie->readAll();
 		$d['questionnaires'] = $this->Questionnaire->readAll();
@@ -18,6 +21,7 @@ class CtrlQuestionnaire extends Controller {
 
 	// Action view
 	function view($id) {
+		$this->loadDao('User');
 		$this->loadDao('Categorie');
 		$this->loadDao('Questionnaire');
 		$this->loadDao('Question');
@@ -27,6 +31,9 @@ class CtrlQuestionnaire extends Controller {
 		$d['listQuestions'] = $this->Question->readAll($id);
 		$d['listReponses'] = $this->Reponse->readAll();
 		$d['categories'] = $this->Categorie->readAll();
+		if (isset($_SESSION['id'])) {
+			$d['userSession'] = $this->User->read($_SESSION['id']);
+		}
 		
 		$this->set($d);
 		$this->render('view');

@@ -1,9 +1,48 @@
 <main>
 	<section>
-	 
-		
 
-		<h1>Créer</h1>
+		<h1>Recherche de questionnaire</h1>
+		
+		<article>
+			<form action="search" method="POST" name="searchQuest">
+			<p><label for="selectCat">Catégories :</label><br>
+			<select name="selectCat" id="selectCat">
+				<option disabled selected value>Selectionnez une catégorie</option>
+				<?php 
+				
+						foreach ($categories as $key => $categorie) {
+							echo "<option value=".$categorie->getId().">".$categorie->getNom()."</option>";
+						}
+				
+				 ?>
+			</select></p>
+			<p><label for="selectQuest">Questionnaires :</label><br>
+			<select name="selectQuest" id="selectQuest">
+				<option disabled selected value>Selectionnez un questionnaire</option>
+				<?php 
+					foreach ($questionnaires as $key => $questionnaire) {
+						echo "<option value='".$questionnaire->getId()."'>".$questionnaire->getNom()."</option>";
+					}
+							
+				 ?>
+
+			</select></p>
+			<p><label for="selectStag">Stagiaires :</label><br>
+			<select name="selectStag" id="selectStag">
+				<option disabled selected value>Selectionnez un stagiaire</option>
+				<?php 
+					foreach ($users as $key => $user) {
+						echo "<option value=".$user->getId().">".$user->getNom()." ".$user->getPrenom()."</option>";
+					}
+				 ?>
+			</select></p>
+			<p><input type="submit">
+			<button><a href="<?php echo WEBROOT ?>Questionnaire/index">Reset</a></button></p>
+		</form>
+		</article>
+
+		
+		<h1>Création de questionnaire</h1>
 		<article>
 			<form action="addQuestionnaire" method="POST">
 						<select name="catId">
@@ -22,46 +61,6 @@
 						<input type="submit">
 			</form>			
 		</article>
-		<h1>Voir</h1>
-		
-		<article>
-			<form action="search" method="POST">
-			Catégories
-			<select name="selectCat" id="">
-				<option disabled selected value>Selectionnez une catégorie</option>
-				<?php 
-				
-						foreach ($categories as $key => $categorie) {
-							echo "<option value=".$categorie->getId().">".$categorie->getNom()."</option>";
-						}
-				
-				 ?>
-			</select>
-			Questionnaires
-			<select name="selectQuest" id="">
-				<option disabled selected value>Selectionnez un questionnaire</option>
-				<?php 
-					foreach ($questionnaires as $key => $questionnaire) {
-						echo "<option value='".$questionnaire->getId()."'>".$questionnaire->getNom()."</option>";
-					}
-							
-				 ?>
-
-			</select>
-			Stagiaires
-			<select name="selectStag" id="">
-				<option disabled selected value>Selectionnez un stagiaire</option>
-				<?php 
-					foreach ($users as $key => $user) {
-						echo "<option value=".$user->getId().">".$user->getNom()." ".$user->getPrenom()."</option>";
-					}
-				 ?>
-			</select>
-			<input type="submit">
-			<button><a href="<?php echo WEBROOT ?>Questionnaire/index">Reset</a></button>
-		</form>
-		</article>
-
 		
 		
 
