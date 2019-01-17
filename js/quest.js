@@ -60,6 +60,43 @@ $(document).ready(function() {
     $('#btnUpdateQuest').css("display", "none");
     $('#formUpdateQuest').css("display", "block");
   });
+
+  /*Tu changera les selectors comme bon te sembles
+  * j'ai utilisé des class histoire de faire ça propreet rapide
+  */
+  $('.questionSendButton').click(function(event) {
+    event.preventDefault();
+
+    $this = $(this);
+    var $parentElt = $this.parent();
+
+    if ($parentElt.prop('tagName') === "FORM") {
+      var $inputsElt = $parentElt.find('input[type="text"], input[type="radio"], input[type="checkbox"]');
+      var inputsValue = [];
+
+      //foreach input elt
+      $inputsElt.each(function(index) {
+        inputsValue.push(this.value);
+      });console.log(inputsValue);
+
+      $.ajax({
+        url: window.location.href,
+        type: "POST",
+        data: {
+          //TODO: ajouter les données à post
+        },
+        success: function(data) {
+          if (data.success == true) {
+            alert('yo');
+          } else {
+            console.error("Erreur d'envois des données.");
+          }
+        }
+      });
+    } else {
+      console.error('Parent is a "' + $parentElt.prop('tagName') + '" tag and not a form.');
+    }
+  });
 });
 
 function addRep() {	

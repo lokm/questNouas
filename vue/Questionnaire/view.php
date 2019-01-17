@@ -73,7 +73,7 @@
 						echo "<br><br>LIST QUESTIONS<br>";
 				
 						foreach ($listQuestions as $key => $question) {
-							echo '<form action="<?php echo WEBROOT ?>Questionnaire/addRepStg" method="post">';
+							echo '<form>';
 							echo '<input type="hidden" name="userId" value="'.$_SESSION["id"].'">';
 							echo "question : ".$question->getQuestion()."<br>";
 							echo "aide : ".$question->getAide()."<br><br>";
@@ -96,7 +96,7 @@
 									echo '<input type="hidden" name="nbR" value="'.$i.'">';	
 								break;
 							}
-						echo '<input type="submit"></form>';
+						echo '<input class="questionSendButton" type="submit"></form>';
 						echo "<hr>";
 
 						}
