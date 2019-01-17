@@ -17,13 +17,13 @@ class DaoReponse {
 	/*TODO: transformer les paramètres récupérés procédural en objet
 	* transformer les paramètres de post en objet ReponseStagiairepeut-être
 	*/
-	public function reponseStagiaire($reponse, $idmembre, $idreponses, $nbpass, $idquest) {
+	public function reponseStagiaire($question, $idmembre, $idreponses, $nbpass, $idquest) {
 		if (
 			DB::select(
-				"INSERT INTO reponsestg (reponse, idmembre, idreponses, nbpass, idquest)
+				"INSERT INTO reponsestg (question, idmembre, idreponses, nbpass, idquest)
 					VALUES (?, ?, ?, ?, ?)",
 				array(
-					$reponse,
+					$question,
 					$idmembre,
 					$idreponses,
 					$nbpass,

@@ -158,8 +158,8 @@ class CtrlQuestionnaire extends Controller {
 			var $newQuestion = [
 				'id' => htmlspecialchars($value),
 				'idReponse' => $_POST["Q" . $questionCount . "reponse"],
-				//'idMembre' => $_POST["utilisateur"],
-				//TODO: 'nbPass' => value,
+				'idMembre' => null,
+				'nbPass' => null,
 				'iqQuest' => $_POST["idQuest"]
 			];
 
@@ -169,7 +169,7 @@ class CtrlQuestionnaire extends Controller {
 
 		//TODO: continuer pour le rendre fonctionnel
 		foreach($questions as $question) {
-			$this->Reponse->reponseStagiaire($reponse, $idmembre, $idreponses, $nbpass, $idquest);
+			$this->Reponse->reponseStagiaire($question['id'], $question['idMembre'], $question['idReponse'], $question['nbPass'], $question['idQuest']);
 		}
 	}
 
