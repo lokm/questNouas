@@ -10,7 +10,7 @@
 	?>
 	<link rel="stylesheet" href="<?php echo WEBROOT ?>css/main.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	
+	<script type="text/javascript" src="<?php echo WEBROOT ?>js/quest.js"></script>
 </head>
 <body>
 
@@ -55,6 +55,6 @@
 	}
 	
 	?>
-	<script type="text/javascript" src="<?php echo WEBROOT ?>js/quest.js"></script>
+	
 </body>
 </html>

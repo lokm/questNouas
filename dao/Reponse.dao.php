@@ -27,19 +27,29 @@ class DaoReponse {
 		return $reponse;
 	}
 
-	/*public function readAll($question) {
-		$donnee = DB::select("SELECT id, reponse, valid, fk_question FROM reponses WHERE fk_question = ?", array($question));
-		$tabReponses = array();
-		if(!empty($donnee)) {
-			foreach ($donnee as $key => $value) {
-				$tabReponses[$key] = new Reponse($donnee[$key]['reponse'],$donnee[$key]['valid'],$donnee[$key]['fk_question']);
-				$tabReponses[$key]->setId($donnee[$key]['id']);
-			}
+	/*TODO: transformer les paramètres récupérés procédural en objet
+	* transformer les paramètres de post en objet ReponseStagiairepeut-être
+	*/
+	public function reponseStagiaire($reponse, $idmembre, $idreponses, $nbpass, $idquest) {
+		if (
+			DB::select(
+				"INSERT INTO reponsestg (reponse, idmembre, idreponses, nbpass, idquest)
+					VALUES (?, ?, ?, ?, ?)",
+				array(
+					$reponse,
+					$idmembre,
+					$idreponses,
+					$nbpass,
+					$idquest
+				)
+			)
+		) {
+			return true;
 		} else {
-			return null;
+			return false;
 		}
-		return $tabReponses;
-	}*/
+	}
+
 
 	public function readAll() {
 		$donnee = DB::select("SELECT id, reponse, valid, fk_question FROM reponses ");

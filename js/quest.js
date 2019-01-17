@@ -4,6 +4,8 @@ var countC = 1;
 var countR = 0;
 var tabRepCheck = [[],[]];
 
+
+
 function getCookie(cname) {
   var name = cname + "=";
   var decodedCookie = decodeURIComponent(document.cookie);
@@ -21,37 +23,43 @@ function getCookie(cname) {
 }
 
 $(document).ready(function() {
-$("#btnQuestion").click(function(){
+  $("#btnQuestion").click(function(){
 
-	var parent = document.getElementsByName("questQview");
-	
+  	var parent = document.getElementsByName("questQview");
+  	
 
-		for (var i = 0; i < countR; i++) {
-			tabRepCheck[0].push(document.getElementsByName("R"+i)[0].value);
-			tabRepCheck[1].push(document.getElementsByName("C"+i)[0].checked);
-		}
+  		for (var i = 0; i < countR; i++) {
+  			tabRepCheck[0].push(document.getElementsByName("R"+i)[0].value);
+  			tabRepCheck[1].push(document.getElementsByName("C"+i)[0].checked);
+  		}
 
-    console.log("tabRepCheck : ");
-    console.dir(tabRepCheck);
+      console.log("tabRepCheck : ");
+      console.dir(tabRepCheck);
 
 
-    $.ajax({
-       url : window.location.protocol+"//"+window.location.hostname+"/questionnaire/Questionnaire/addQuestion", // La ressource ciblée
-       type : 'POST', // Le type de la requête HTTP.
-       data : {
-       		questId : document.getElementsByName("questId")[0].value,
-       		type : document.getElementsByName("type")[0].value,
-       		question : document.getElementsByName("question")[0].value,
-       		aide : document.getElementsByName("aide")[0].value,
-       		tabRep : tabRepCheck
-       }
-    }).done(function() {
-    tabRepCheck = [[],[]];
-    console.log("post send !");
-   /*window.location.replace(window.location.protocol+"//"+window.location.hostname+"/questionnaire/Questionnaire/addQuestion");*/
+      $.ajax({
+         url : window.location.protocol+"//"+window.location.hostname+"/questionnaire/Questionnaire/addQuestion", // La ressource ciblée
+         type : 'POST', // Le type de la requête HTTP.
+         data : {
+         		questId : document.getElementsByName("questId")[0].value,
+         		type : document.getElementsByName("type")[0].value,
+         		question : document.getElementsByName("question")[0].value,
+         		aide : document.getElementsByName("aide")[0].value,
+         		tabRep : tabRepCheck
+         }
+      }).done(function() {
+      tabRepCheck = [[],[]];
+      console.log("post send !");
+     /*window.location.replace(window.location.protocol+"//"+window.location.hostname+"/questionnaire/Questionnaire/addQuestion");*/
+    });
+     
   });
-   
-});
+
+  $("#btnUpdateQuest").click(function(){
+    $('#questInfo').css("display", "none");
+    $('#btnUpdateQuest').css("display", "none");
+    $('#formUpdateQuest').css("display", "block");
+  });
 });
 
 function addRep() {	
@@ -112,7 +120,9 @@ function addQuest(option) {
 	
 }
 
+function updateQuest() {
 
+}
 
 function removeLastRep() {
 	var parent = document.getElementById("questQview");

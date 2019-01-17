@@ -18,12 +18,15 @@ class CtrlQuestionnaire extends Controller {
 
 	// Action view
 	function view($id) {
+		$this->loadDao('Categorie');
 		$this->loadDao('Questionnaire');
 		$this->loadDao('Question');
 		$this->loadDao('Reponse');
+
 		$d['quest'] = $this->Questionnaire->read($id);
 		$d['listQuestions'] = $this->Question->readAll($id);
 		$d['listReponses'] = $this->Reponse->readAll();
+		$d['categories'] = $this->Categorie->readAll();
 		
 		$this->set($d);
 		$this->render('view');
@@ -35,8 +38,33 @@ class CtrlQuestionnaire extends Controller {
 		$this->Questionnaire->create($questionnaire);
 	}
 
+	// Action update
+	function update(AbstractEntity $questionnaire) {
+		$this->loadDao('Questionnaire');
+		$this->Questionnaire->update($questionnaire);
+	}
 
+	// Action delete
+	function delete($id) {
+		$this->loadDao('Questionnaire');
+		$this->Questionnaire->delete($id);
+		render('index');
+	}
 
+	function updateQuest() {
+		$this->loadDao('Questionnaire');
+		$this->quest = new Questionnaire("","",0,0);
+
+		$this->quest->setId((int) $this->input['questId']);
+		$this->quest->setNom($this->input['questNom']);
+		$this->quest->setCategorie($this->input['catId']);
+		$this->quest->setIntro($this->input['questDesc']);
+		$this->quest->setFormateur((int) $this->input['questUser']);
+
+		$this->update($this->quest);
+	
+		header('Location: view/'.(int) $this->input['questId']);
+	}
 
 	// Action addQuestionnaire
 	function addQuestionnaire() {
@@ -54,12 +82,11 @@ class CtrlQuestionnaire extends Controller {
 		
 
 		$d['categories'] = $this->Categorie->readAll();
-
-		if (isset($_COOKIE["questId"])) {
-			$this->quest = $this->Questionnaire->read($_COOKIE["questId"]);
-			$this->listQuestions = $this->Question->readAll($_COOKIE['questId']);
+		//TODO: enlever le cookie !
+		
+			
 	
-		} else {
+		
 			if (!empty($this->input['catId'])) {
 				$this->quest->setCategorie($this->input['catId']);
 			} elseif (!empty($this->input['catNom']) && !empty($this->input['catDesc'])) {
@@ -91,7 +118,9 @@ class CtrlQuestionnaire extends Controller {
 
 				$this->create($this->quest);
 				
-		}
+		$this->listQuestions = $this->Question->readAll($this->quest->getId());
+
+
 		$d['log'] = $this->log;
 		$d['quest'] = $this->quest;
 		$d['listQuestions'] = $this->listQuestions;
@@ -155,12 +184,46 @@ class CtrlQuestionnaire extends Controller {
 		$this->loadDao('Questionnaire');
 		$this->loadDao('User');
 
-		$this->cat = new Categorie("","");
-		$this->quest = new Questionnaire("","",0,0);
-		$this->user = new User("","","","");
+		if (isset($this->input["selectCat"]) && !empty($this->input["selectCat"])) {
+			$d['categories'] = [$this->Categorie->read($this->input["selectCat"])];
+			$d['questionnaires'] = $this->Questionnaire->readAllByCat($this->input["selectCat"]);
+			$d['users'] = $this->User->readAll();
+		} elseif (isset($this->input["selectQuest"]) && !empty($this->input["selectQuest"])) {
+			$this->quest = $this->Questionnaire->read($this->input["selectQuest"]);
+			$d['categories'] = [$this->Categorie->read($this->quest->getCategorie())];
+			$d['questionnaires'] = [$this->quest];
+			$d['users'] = $this->User->readAll();
+		} else {
+			$d['categories'] = $this->Categorie->readAll();
+			$d['questionnaires'] = $this->Questionnaire->readAll();
+			$d['users'] = $this->User->readAll();
+		}
 
-		if (!empty($this->input["selectCat"])) {
-			
+
+
+		$this->set($d);
+		$this->render('index');
+	}
+
+	// action sendQuestionnaire
+	function addRepStg() {
+		$this->loadDao('Reponse');
+		$this->questionCount = 0;
+		$this->questions = array();
+		foreach($this->input['questionsId'] as $value) {
+			$this->newQuestion = [
+				'id' => htmlspecialchars($value),
+				'idReponse' => $this->input["Q" . $this->questionCount . "reponse"],
+				//'idMembre' => $_POST["utilisateur"],
+				//TODO: 'nbPass' => value,
+				'iqQuest' => $this->input["idQuest"]
+			];
+			array_push($this->questions, $this->newQuestion);
+			$this->questionCount++;
+		}
+		//TODO: continuer pour le rendre fonctionnel
+		foreach($this->questions as $question) {
+			$this->Reponse->reponseStagiaire($reponse, $idmembre, $idreponses, $nbpass, $idquest);
 		}
 	}
 

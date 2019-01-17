@@ -20,6 +20,7 @@ class DaoQuestionnaire {
 
 		return $questionnaire;
 	}
+
 	public function readAll() {
 		$donnee = DB::select("SELECT id, nomquest, intro, idmembre, cat_id FROM quests");
 		$tabQuests = array();
@@ -33,11 +34,26 @@ class DaoQuestionnaire {
 		}
 		return $tabQuests;
 	}
+
+	public function readAllByCat($id) {
+		$donnee = DB::select("SELECT id, nomquest, intro, idmembre, cat_id FROM quests WHERE cat_id = ?", array($id));
+		$tabQuests = array();
+		if(!empty($donnee)) {
+			foreach ($donnee as $key => $value) {
+				$tabQuests[$key] = new Questionnaire($donnee[$key]['nomquest'],$donnee[$key]['intro'],$donnee[$key]['idmembre'],$donnee[$key]['cat_id']);
+				$tabQuests[$key]->setId($donnee[$key]['id']);
+			}
+		} else {
+			return null;
+		}
+		return $tabQuests;
+	}
+
 	public function update($questionnaire) {
 		DB::select("UPDATE quests SET nomquest = ?,  intro = ?, idmembre = ?, cat_id = ? WHERE id = ?",array($questionnaire->getNom(),$questionnaire->getIntro(),$questionnaire->getFormateur(), $questionnaire->getCategorie(), $questionnaire->getId()));
 	}
-	public function delete() {
-
+	public function delete($id) {
+		DB::select("DELETE FROM quests WHERE id = ?",array($id));
 	}
 
 	

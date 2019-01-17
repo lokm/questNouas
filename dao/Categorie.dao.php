@@ -35,6 +35,7 @@ class DaoCategorie {
 		return $tabCats;
 
 	}
+
 	public function update($categorie) {
 		DB::select("UPDATE categories SET nom = ?,  description = ? WHERE id = ?",array($categorie->getNom(),$categorie->getDescription(), $categorie->getId()));
 	}

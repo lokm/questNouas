@@ -1,19 +1,57 @@
 <main>
 	<section>
 		<h1>Questionnaire</h1>
+		<?php 
+		/*var_dump('toto : '.$toto);
+		echo "<pre>";
+		echo $toto;
+		echo "</pre>";*/
+		$_SESSION['type'] = 'Membre';
+		?>
 		<article>
-			<<?php 
-					/*echo "<pre>";
-					var_dump($listReponses);
-					echo "</pre>";*/
-
-					if (isset($quest) && $quest->getId() != 0) {
-						echo "QUESTIONNAIRE<br>";
-						echo "id : ".$quest->getId()."<br>"."nom : ".$quest->getNom()."<br>"."intro : ".$quest->getIntro()."<br>"."formateur : ".$quest->getFormateur()."<br>"."categorie : ".$quest->getCategorie()."<br><br>"; 
-					} else { 
-						echo "questionnaire non crée";
-				 	}
+			<form action="<?php echo WEBROOT ?>Questionnaire/updateQuest" method="post" id="formUpdateQuest">
+				<input type="hidden" name="questId" value="<?php echo $quest->getId() ?>">
+				<input type="hidden" name="questUser" value="<?php echo $quest->getFormateur() ?>" placeholder="<?php echo $quest->getFormateur() ?>">
 				
+				<p><label for="questNom">Nom : </label>
+				<input type="text" name="questNom" id="questNom" value="<?php echo $quest->getNom() ?>" placeholder="<?php echo $quest->getNom() ?>"></p>
+				
+				<p><label for="questDesc">Description : </label>
+				<input type="text" name="questDesc" id="questDesc" value="<?php echo $quest->getIntro() ?>" placeholder="<?php echo $quest->getIntro() ?>"></p>
+				
+				<p><label for="catId">Categorie : </label>
+					<select name="catId" id="catId">
+						<?php 
+							
+							foreach ($categories as $key => $categorie) {
+								echo "<option value=".$categorie->getId().">".$categorie->getNom()."</option>";
+							}
+						 ?>
+					</select>
+				</p>
+				<input type="submit">
+			</form>
+			<div id="questInfo">
+			<?php 
+		
+				echo "id : ".$quest->getId()."<br>".
+				"nom : ".$quest->getNom()."<br>".
+				"intro : ".$quest->getIntro()."<br>".
+				"formateur : ".$quest->getFormateur()."<br>".
+				"categorie : ".$quest->getCategorie()."<br><br>"; 
+					
+			?>
+			</div>
+			<?php 
+			if ($_SESSION['type'] == 'Admin') {
+			 ?>
+			<button id="btnUpdateQuest">modifier</button><a href="<?php echo WEBROOT ?>Questionnaire/delete/<?php echo $quest->getId(); ?>"><button>supprimer</button></a><br>
+			 
+			<?php } ?>
+			
+
+			<?php
+				if ($_SESSION['type'] == 'Admin') {
 				 	if (!empty($listQuestions) && !empty($listReponses)) {
 						echo "<br><br>LIST QUESTIONS<br>";
 						foreach ($listQuestions as $key => $question) {
@@ -35,9 +73,48 @@
 						}
 						echo "<hr>";
 					} 
+				
+				} else {
+					if (!empty($listQuestions) && !empty($listReponses)) {
+						echo "<br><br>LIST QUESTIONS<br>";
+				
+						foreach ($listQuestions as $key => $question) {
+							echo '<form action="<?php echo WEBROOT ?>Questionnaire/addRepStg" method="post">';
+							echo '<input type="hidden" name="userId" value="'.$_SESSION["id"].'">';
+							echo "question : ".$question->getQuestion()."<br>";
+							echo "aide : ".$question->getAide()."<br><br>";
+							echo "<input type='hidden' name='questionId' value='".$question->getId()."'>";
 
-		?>
+							switch ($question->getType()) {
+								
+								case '0':
+									echo "<input type='text' name='R' placeholder='Veuillez entrez une réponse'><br><br>";
+								break;
+								
+								case '1':
+									$i = 0;
+									foreach ($listReponses as $key => $reponse) {
+										if ($question->getId() == $reponse->getQuestion()) {
+											echo "<input type='checkbox' name='R".$i."' value='".$reponse->getId()."'> ".$reponse->getReponse()."<br>";
+											$i++;
+										}
+									}
+									echo '<input type="hidden" name="nbR" value="'.$i.'">';	
+								break;
+							}
+						echo '<input type="submit"></form>';
+						echo "<hr>";
+
+						}
+					}
+				}
+
+		?> 
+		
 		</article>
+		<?php if ($_SESSION['type'] == 'Admin') {
+			
+		?>
 		<article>
 			<form action="<?php echo WEBROOT ?>Questionnaire/addQuestion" method="post">
 			<input type="radio" name="type" value="0"> Question simple <br>
@@ -53,5 +130,9 @@
 		<a href="<?php echo WEBROOT ?>Questionnaire/view/<?php echo $quest->getId(); ?>">
 		<button>finaliser</button></a>
 		</article>
+		<?php } //FIN if ($_SESSION['type'] = 'Admin') ?>
+		
+
+
 	</section>
 </main>
