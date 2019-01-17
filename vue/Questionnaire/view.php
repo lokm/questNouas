@@ -72,14 +72,13 @@
 				<?php
 				if (!empty($listQuestions) && !empty($listReponses)) {
 					echo "<br><br>LIST QUESTIONS<br>";
-					var i = 0;
+					$i = 0;
 					foreach ($listQuestions as $key => $question) {
 						echo "<hr>";
 						echo "questionnaire : ".$question->getQuestionnaire()."<br>";
 						echo "id : ".$question->getId()."<br>";
-				?>
-				<input type="hidden" name="questionsId" value="<?php echo $question->getId(); ?>">
-				<?php
+						//hidden input storing each question's id
+						echo '<input type="hidden" name="questionsId" value="' . $question->getId() . '">';
 						echo "question : ".$question->getQuestion()."<br>";
 						
 						echo "aide : ".$question->getAide()."<br><br>";
@@ -97,61 +96,58 @@
 							* les labels sont liés aux input par un id créé
 							*/
 							case 1 :
-								var j = 0;
+								$j = 0;
 								foreach ($listReponses as $key => $reponse) {
-									var htmlId = "Q" . i . "R" . j;
+									$htmlId = "Q" . $i . "R" . $j;
 									if ($question->getId() == $reponse->getQuestion()) {
 										echo '<input id="' .
-											htmlId .
-											'" type="radio" name="Q' . i . 'reponse" value="' .
+											$htmlId .
+											'" type="radio" name="Q' . $i . 'reponse" value="' .
 											$question->getId() .
 											'">' .
 											'<label for="'.
-											htmlId .
+											$htmlId .
 											'">'.
 											$reponse->getReponse() .
 											'</label>'.
 											'<br>';
 									}
-									i++
+									$j++;
 								}
 								break;
 							case 2 :
-								var j = 0;
+								$j = 0;
 								foreach ($listReponses as $key => $reponse) {
-									var htmlId = "Q" . i . "R" . j;
+									$htmlId = "Q" . $i . "R" . $j;
 									if ($question->getId() == $reponse->getQuestion()) {
 										echo '<input id="' .
-											htmlId .
-											'" type="checkbox" name="Q' . i . 'reponse" value="' .
+											$htmlId .
+											'" type="checkbox" name="Q' . $i . 'reponse" value="' .
 											$question->getId() .
 											'">' .
 											'<label for="' .
-											htmlId .
+											$htmlId .
 											'">'.
 											$reponse->getReponse() .
 											'</label>'.
 											'<br>';
 									}
+									$j++;
 								}
 								break;
 						}
+						$i++;
 					}
-				}
-			}
-			?>
-			<!--
-				TODO: input type hidden à remplacer avec une préparation de POST full PHP
-				car les valeurs peuvent être modifiées dans un éditeur de navigateur web
-				/!\ ATTENTION AUX INJECTIONS /!\
-			-->
-			
-			<!-- TODO: input type="hidden" name="utilisateur" value="<?php //echo $_SESSION['userId']; ?>" -->
-			<input type="hidden" name="idQuest" value="<?php echo $quest; ?>">
+					?>
+					
+					<!-- TODO: input type="hidden" name="utilisateur" value="id de l'utilisateur" -->
+					<input type="hidden" name="idQuest" value="<?php echo $quest->getId(); ?>">
 
-			<input type="submit">
-			</form>
-		<?php
+					<input type="submit" value="Envoyer la réponse">
+				</form>
+				<?php
+			}
+		}
 		/*TODO: end of if !empty($_SESSION)
 		* }
 		*/

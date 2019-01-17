@@ -152,17 +152,40 @@ class CtrlQuestionnaire extends Controller {
 	function sendQuestionnaire() {
 		$this->loadDao('Reponse');
 
-		var $questionCount = 0;
-		var $questions = array();
-		foreach($_POST['questionsId'] as $value) {
-			//TODO: ajouter l'idMembre et un système fonctionnel pour nbPass
-			var $newQuestion = [
-				'id' => htmlspecialchars($value),
-				'idReponse' => $_POST["Q" . $questionCount . "reponse"],
-				'idMembre' => null,
-				'nbPass' => null,
-				'iqQuest' => $_POST["idQuest"]
-			];
+		//Préparation des variablespermettant l'itération
+		$questionCount = 0;
+		$questions = array();
+		/*pour assurer que questionsId est un array
+		* sinon force la variable à devenir un tableau à une seule valeur
+		*/
+		$questionsId = (gettype($this->input['questionsId']) == "array") ?
+			$this->input['questionsId'] :
+			[$this->input['questionsId']];
+
+		/*Gestion du stockage des id des questions
+		* itération et création d'un stockage formaté
+		* pour chaque identifiant présent dans $questionsID
+		* et renvois au questionnaire si aucune réponse
+		* TODO: poster le type d'erreur pour permettre de le transmettre à la vue
+		*/
+		foreach($questionsId as $value) {
+			$stringFormatee = "Q" . $questionCount . "reponse";
+			if (isset($this->input[$stringFormatee])) {
+				/*TODO: ajouter la gestion logique de la récupération de l'idMembre
+				* et un autre pour la gestion du nbPass
+				* laissé à 0 pour le moment
+				*/
+				$newQuestion = [
+					'id' => htmlspecialchars($value),
+					'idReponse' => $this->input[$stringFormatee],
+					'idMembre' => 0,
+					'nbPass' => 0,
+					'idQuest' => $_POST['idQuest']
+				];
+			} else {
+				echo "Pas de réponse renseignée";
+				header('Location: view/'.$this->input['idQuest']);
+			}
 
 			array_push($questions, $newQuestion);
 			$questionCount++;
@@ -170,10 +193,26 @@ class CtrlQuestionnaire extends Controller {
 
 		//TODO: continuer pour le rendre fonctionnel
 		foreach ($questions as $question) {
-			foreach ($question['idReponse'] as $idReponse) {
-				$this->Reponse->reponseStagiaire($question['id'], $question['idMembre'], $idReponse, $question['nbPass'], $question['idQuest']);
+			/*pour assurer que $idReponse est un array
+			* sinon force la variable à devenir un tableau à une seule valeur
+			*/
+			$idReponse = (gettype($question['idReponse']) == 'array') ?
+				$question['idReponse'] :
+				[$question['idReponse']];
+
+			foreach ($idReponse as $idReponse) {
+				$this->Reponse->reponseStagiaire(
+					$question['idMembre'],
+					$idReponse,
+					$question['nbPass'],
+					$question['idQuest']);
 			}
 		}
+
+		/*TODO: ajouter une redirection en fonction du succès ou de l'échec de l'envois ?
+		* renvois pour l'instant à la vue du questionnaire envoyé
+		*/
+		header('Location: view/'.$this->input['idQuest']);
 	}
 
 	function search() {
