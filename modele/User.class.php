@@ -7,13 +7,15 @@ class User extends AbstractEntity {
 	private $nom;
 	private $prenom;
 	private $formation;
+	private $lang;
 
 	// Constructeur
-	public function __construct($type,$nom,$prenom,$formation) {
+	public function __construct($type,$nom,$prenom,$formation, $lang) {
 		$this->type = $type;
 		$this->nom = $nom;
 		$this->prenom = $prenom;
 		$this->formation = $formation;
+		$this->lang = $lang;
 	}
 
 
@@ -53,6 +55,14 @@ class User extends AbstractEntity {
 
 	public function setFormation($formation) {
 		$this->formation = $formation;
+	}
+
+	public function getLang() {
+		return $this->lang;
+	}
+
+	public function setLang($lang) {
+		$this->lang = $lang;
 	}
 }
 ?>

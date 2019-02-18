@@ -1,53 +1,433 @@
-body {
-	background-image:url(../img/fond-actu.jpg);
-  	background-position: center center;
-  	background-color:rgb(231, 210, 179);
-  	background-repeat: no-repeat;
- 	margin:0;
 
+body {
+	font-family: 'Oxygen', sans-serif;
+	background:rgb(62, 69, 76);
+ 	margin:0;
+	height: 100vh;
  	display: grid;
   	grid-template-columns: 1fr;
-  	grid-template-rows: 10vw 6vw 1fr 5vw;
+  	grid-template-rows: 10vw 1fr 5vw;
   	grid-template-areas: "header"
-                       "nav"
+                       
                        "main"
                        "footer";
 }
+h1, h2, h3, h4 {
+	font-family: 'Yantramanav', sans-serif;
+}
+a {
+	text-decoration: none;
+}
 header {
 	grid-area: header;
-	background-color: rgb(233, 236, 239);
-	margin:0 auto;
+	background-color: white;
+	margin:0.5vw auto;
 	width: 80vw;
-}
-nav {
-	grid-area: nav;
-	margin:0 auto;
-	width: 80vw;
-	
-	background-color: rgb(52, 58, 64);
-	
 	display: flex;
 	flex-flow: row wrap;
-	justify-content:space-evenly;
-  	align-items: space;
-  	align-content: center;
-
+	justify-content: space-around;
+	align-items: center;
+	
+	
 }
-nav a {
+header h1 {
+	display: inline-block;
+	color: rgb(33, 133, 197);
+	font-size: 4vw;
+	font-weight: 600;
+	margin:0.25vw 0;
+}
+header img {
+	width: 7.5vw;
+	margin-top: 0.5vw;
+	
+}
+header a:last-child {
 	text-decoration: none;
-	font-size: 1.5em;
-	color: rgb(200,200,200);
 }
-nav a:hover {
-	color: rgb(230,230,230);
+header button {
+	background: rgb(126, 206, 253);
+	color: white;
+	border: none;
+	font-family: 'Oxygen', sans-serif;
+	font-size: 1vw;
+	padding: 0.30vw 1vw;
+	cursor: pointer;
+	margin-top: 0.5vw;
+	
+}
+header span {
+	text-align: right;
 }
 main {
 	grid-area: main;
 	margin:0 auto;
 	width: 80vw;
+	background: rgb(62, 69, 76);
+	color: white;
+}
+main section {
+	padding:0 2vw;
+	border:10px solid white;
+	margin-bottom: 0.5vw;
+}
+#login form {
+	text-align: center;
+}
+.subscribe article {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	align-items: flex-start;
+	margin-bottom: 2vw;
+}
+.subscribe form {
+	position: relative;
+	font-size: 1vw;
+}
+.subscribe input[type='radio'] {
+	 transform: scale(1);
+}
+.topAdmin {
+	border:none;
+	padding: 0 3vw;
+}
+.topAdmin h1, #bottomAdmin h1 {
+	text-align: center;
+	font-size: 1.5vw;
+	color: rgb(33, 133, 197);
+}
+.topAdmin button, #mainView h3 button, #quest h2 button {
+	float: right;
+	background: none;
+	cursor: pointer;
+	font-size: 1vw;
+}
+.topAdmin button img, #mainView h3 button img, #quest h2 button img {
+	width: 1.5vw;
+}
+.topAdmin .toto, .topAdmin form button, .topAdmin form input[type='submit'], .topAdmin form input[type='button'], #btnRep, #btnRemoveRep, #btnQuestion {
+	background: rgb(126, 206, 253);
+	color:rgb(62, 69, 76);
+	padding: 0.3vw 1vw;
+	cursor: pointer;
+}
+.topAdmin textarea {
+	width: 25vw;
+	height: 5vw;
+	font-size: 1vw;
+}
+.topAdmin input {
+	font-size: 1vw;
+}
+.topAdmin label {
+	cursor: pointer;
+	padding:0.5vw 0;
+}
+.topAdmin input[type='text'] {
+	text-align: center;
+}
+.topAdmin #formUpdateQuest {
+	text-align: center;
+}
+.topAdmin input[type='text'], .topAdmin textarea {
+	width: 30vw;
+}
+.topAdmin #addCat {
+	display: none;
+}
+.addCandidat {
+	text-align: center;
+}
+.addCandidat label {
+	/*padding-left: 25vw;*/
+	margin: 0 auto;
+	width: 23vw;
+	display: block;
+	text-align: left;
+}
+.addCandidat input[type='text'] {
+ text-align: left;
+}
+main input, main select, main textarea, main button {
+	border: none;
+	font-family: 'Oxygen', sans-serif;
+	padding: 0.25vw 0.5vw;
+	margin: 0.25vw;
+}
+main form[name="searchQuest"] {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: flex-start;
+	align-items: flex-end;
+}
+main form[name="addQuest"] button {
+	float: none;
+	font-size: 1vw;
+}
+
+main form[name="searchQuest"] p, main form[name="addQuest"] p {
+	margin:0 1.5vw;
+	text-align: center;
+}
+main form[name="searchQuest"] a {
+	text-decoration: none;
+	color: rgb(62, 69, 76);
+	font-size: 1vw;
+}
+
+#mainView {
+	background: white;
+	color:black;
+}
+#mainView h3 {
+	text-align: center;
+	background: rgb(33, 133, 197);
+	color:white;
+	margin-top: 0;
+	padding: 0.5vw 0;
+	font-size: 2vw;
+	position: relative;	
+}
+#mainView h3 span {
+	position: absolute;
+	top:0.5vw;
+	right: 0.5vw;
+}
+#mainView article p {
+	padding: 0 2vw;
+	text-align: justify;
+	font-size: 1vw;
+}
+#mainView .cat {
+	display: flex;
+	flex-flow: row wrap;
+	align-content: center;
+	justify-content:space-around;
+	margin-bottom: 1vw;
+}
+#mainView .cat a {
+	text-decoration:none;
+}
+#mainView .cat p, #mainView .cat h4 {
+	text-align: center;
+}
+#mainView .quest {
+	width: 21vw;
+	background: white;
+	color:black;
+	margin: 0.5vw 0;
+	border:0.25vw solid rgb(126, 206, 253);
+}
+#mainView .quest h4 {
+	background: rgb(126, 206, 253);
+	color:white;
+	margin:0;
+	padding: 0.5vw 0;
+	font-size: 1.5vw;
+
+}
+#quest {
+	background: white;
+	color:black;
+}
+#quest h2 {
+	background: rgb(33, 133, 197);
+	color:white;
+	padding: 0.5vw;
+	padding-left: 1vw;
+	font-size: 1.5vw;
+	line-height: 2.5vw;
+}
+#quest .Q h2 p {
+    display: inline-block;
+    margin: 0;
+    width: 67vw;
+}
+#quest input[type='text'], #quest textarea, .categorie input[type="text"], .categorie textarea, #login input[type='email'],#login input[type='password'], .inputFormSub {
+	border:0.25vw solid rgb(126, 206, 253);
+	width: 40vw;
+	padding: 0.5vw 1vw;
+	font-size: 1vw;
+}
+.inputFormSub {
+	width: 20vw;
+}
+ #quest input[type="submit"],#quest a input[type='button'], #mainView a input[type='button'], .categorie input[type="submit"], #login input[type="submit"], .subscribe input[type="submit"] {
+	background: rgb(126, 206, 253);
+	color:white;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	padding: 0.5vw 1.5vw;
+	margin:0;
+	cursor: pointer;
+	font-size: 1.5vw;
+}
+#mainView a input[type='button'] {
+	right: 2vw;
+	bottom:-4vw;
+}
+#mainView input[type='submit'] {
+	right: 11vw;
+	bottom:-4vw;
+}
+#login input[type='email'],#login input[type='password'] {
+	width: 25vw;
+}
+#login input[type="submit"], .subscribe input[type="submit"] {
+	position: relative;
+	bottom: auto;
+	right: -9.5vw;
+	margin-top: 0.5vw; 
+}
+.subscribe form input[type='submit'] {
+	left: 65vw;
+}
+#quest input[name='question'], .categorie input[name="catNom"] {
+	width:69.5vw;
+}
+#quest img {
+	margin: 0 auto;
+	max-width: 50vw;
+}
+#questInfo {
+	text-align: center;
+}
+#questInfo h1 {
+	font-size: 2vw;
+	color: rgb(33, 133, 197);
+}
+#questInfo p {
+	font-size: 1.5vw;
+}
+.categorie {
+	position: relative;
+	margin-bottom: 5vw;
+}
+.categorie textarea {
+	width: 68vw;
+	height: 6vw;
+}
+.question {
+	position: relative;
+}
+.img {
+	text-align: center;
+}
+.aide {
+	font-size: 1vw;	
+}
+.reponse {
+	padding-left: 15vw;
+	margin-bottom: 5vw;
+}
+.success {
+	background: rgb(40,210,106,0.5);
+	color: white;
+	padding:1vw 0;
+	width: 74.6vw;
+	text-align: center;
+	font-size: 1.5vw;
+}
+.repValid {
+	background: rgb(40,210,106,0.5);
+	color: white;
+	margin: 0 -0.5vw;
+	padding: 0 0.5vw;
+}
+
+#bottomAdmin {
+	border:none;
+}
+#bottomAdmin input[type="text"], #bottomAdmin textarea {
+	width: 30vw;
 }
 footer {
 	grid-area: footer;
 	margin:0 auto;
 	width: 80vw;
+	background: rgb(62, 69, 76);
 }
+#formUpdateQuest, .formUpdateQ, .formUpdateC {
+	display:none;
+}
+.formUpdateQ input[type='submit'] {
+	bottom: 0 !important;
+	right: 9vw !important;
+}
+
+/* custom checkbox */
+ /* Customize the label (the container) */
+.container {
+  display: block;
+  position: relative;
+  padding-left: 2.5vw;
+  padding-top: 0.7vw;
+  margin-bottom: 1vw;
+  cursor: pointer;
+  font-size: 1vw;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0.4vw;
+  left: 0;
+  height: 1.9vw;
+  width: 1.9vw;
+  background-color: #eee;
+}
+.formUpdateQ .checkmark {
+	bottom: 1.4vw;
+	right: 29vw;
+	top: auto;
+  left: auto;
+}
+/* On mouse-over, add a grey background color */
+.container:hover input ~ .checkmark {
+  background-color: rgba(62, 69, 76,0.5);
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: rgb(126, 206, 253);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 0.65vw;
+  top: 0.35vw;
+  width: 0.40vw;
+  height: 0.8vw;
+  border: solid white;
+  border-width: 0 0.25vw 0.25vw 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+} 

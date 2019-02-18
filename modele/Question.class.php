@@ -2,7 +2,7 @@
 class Question extends AbstractEntity {
 	private $type;
 	private $question;
-	private $reponse;
+	private $reponse = [];
 	private $aide;
 	private $img;
 	private $questionnaire;

@@ -4,12 +4,14 @@
 class Categorie extends AbstractEntity {
 	private $nom;
 	private $description;
+	private $lang;
 
 	// Constructeur
-	public function __construct($nom, $description) {
+	public function __construct($nom, $description, $lang) {
 		$this->id = 0;
 		$this->nom = $nom;
 		$this->description = $description;
+		$this->lang = $lang;
 	}
 
 
@@ -32,6 +34,14 @@ class Categorie extends AbstractEntity {
 
 	public function setDescription($description) {
 		$this->description = $description;	
+	}
+
+	public function getLang() {
+		return $this->lang;
+	}
+
+	public function setLang($lang) {
+		$this->lang = $lang;	
 	}
 }
 ?>

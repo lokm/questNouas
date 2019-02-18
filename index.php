@@ -4,28 +4,51 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Exercice en ligne</title>
-	<link rel="stylesheet" href="/questionnaire/css/main.css">
-</head>
-<body>
 	<?php 
 	define('WEBROOT',str_replace('index.php', '', $_SERVER['SCRIPT_NAME']));
 	define('ROOT',str_replace('index.php', '', $_SERVER['SCRIPT_FILENAME']));
-	
-	require_once(ROOT.'core/Config.php');
-	require_once(ROOT.'core/Bdd.php');
-	require_once(ROOT.'core/AbstractEntity.php');
-	require_once(ROOT.'core/Controller.php'); 
+	?>
+	<link href="https://fonts.googleapis.com/css?family=Oxygen" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Yantramanav:700" rel="stylesheet">  
+	<link rel="stylesheet" href="<?php echo WEBROOT ?>css/main.css">
+	<link rel="stylesheet" href="<?php echo WEBROOT ?>css/TimeCircles.css">
 
+
+</head>
+<body>
+
+
+	<?php 
+	
+	
+	//////////////// ROUTAGE ////////////// 
+	
+
+	// chargement des composants principaux du core
+	require_once('core/Config.php');
+	require_once('core/Bdd.php');
+	require_once('core/AbstractEntity.php');
+	require_once('core/Controller.php'); 
+
+	// Récupération du controleur et de l'action par l'uri
+	if ($_GET["p"] == "") {
+		$_GET["p"] = "Questionnaire/index";
+	}
 	$params = explode('/', $_GET["p"]);
+	
+
 	$controller = $params[0];
 	$controller = $controller.".ctrl.php";
+
 	$action = isset($params[1]) ? $params[1] : 'index';
 
-	require(ROOT.'controlleur/'.$controller);
+	// Initialisation du controleur
+	require('controlleur/'.$controller);
 	$controllerFct = explode('.',$controller);
 	$controller = "Ctrl".$controllerFct[0];
 	$controller = new $controller();
 
+	// Execution du controleur et de l'action avec paramètre (3ème param de l'uri)
 	if (method_exists($controller,$action)) {
 		unset($params[0]);
 		unset($params[1]);
@@ -35,5 +58,9 @@
 	}
 	
 	?>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="<?php echo WEBROOT ?>js/TimeCircles.js"></script>
+	<script src="<?php echo WEBROOT ?>js/timer.js"></script>
+	<script type="text/javascript" src="<?php echo WEBROOT ?>js/quest.js"></script>
 </body>
 </html>
